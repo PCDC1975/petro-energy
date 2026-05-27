@@ -1,0 +1,97 @@
+<!-- Hero Section -->
+<section class="min-h-[90vh] flex items-center bg-gradient-to-br from-zinc-900 to-black text-white relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('/hero-platform.jpg')] bg-cover bg-center opacity-40"></div>
+    <div class="container mx-auto px-6 relative z-10 min-h-screen flex flex-col items-center justify-center text-center">
+      <div class="max-w-3xl">
+        <h1 class="text-amber-300 md:text-6xl font-bold mb-6">
+          Energia que move o futuro com responsabilidade
+        </h1>
+        <p class="text-xl text-amber-300 mb-8">
+          Há mais de 25 anos liderando a exploração e produção de petróleo, investindo em tecnologia, pessoas e no planeta.
+        </p>
+        <div class="flex items-center justify-center gap-8">
+            <a routerLink="/sobre" class="btn-primary px-10 py-4 text-lg font-semibold">
+              Conheça nossa História
+            </a>
+          <a routerLink="/projetos-sociais" class="border border-white/70 hover:bg-white/10 text-white px-10 py-4 text-lg font-semibold rounded-2xl transition-all">
+            Projetos sociais
+          </a>
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- Posts em Destaque -->
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-2">Nossos Grandes Projetos</h2>
+    <p class="text-center text-xl mb-8">
+      Conheça as operações que posicionam a Petro Energy na vanguarda da indústria energética mundial.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      @for (post of featuredPosts; track post.id) {
+        <a [routerLink]="['/post', post.id]"
+           class="card group overflow-hidden bg-white hover:shadow-2xl transition-all duration-300">
+          <img [src]="post.image" [alt]="post.title" class="w-full h-64 object-cover group-hover:scale-105 transition-transform">
+          <div class="p-8">
+            <p class="text-blue-600 text-sm mb-3">{{ post.date }}</p>
+            <h3 class="text-xl text-center font-bold mb-3">{{ post.title }}</h3>
+            <p class="text-black text-justify">{{ post.excerpt }}</p>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Pesquisa de Backend -->
+<section>
+  <div class="py-5 bg-blue-950 text-white">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-1">
+        <h2 class="text-3xl text-amber-300 font-bold mb-4">Dados do Backend</h2>
+        <p class="text-amber-300 mb-8">Projetos carregados via json-server</p>
+      </div>
+
+      <button (click)="carregarDadosDoBackend()" [disabled]="isLoading" class="bg-amber-500 hover:bg-amber-600 mx-auto
+      block px-5 py-3 text-lg font-semibold rounded-2xl items-center gap-3">
+        <span *ngIf="isLoading" class="animate-spin inline-block">⟳</span>
+        {{ isLoading ? 'Carregando...' : '📡 Atualizar Dados' }}
+      </button>
+
+      <!-- Cards -->
+      <div *ngIf="backendData && backendData.length > 0" class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let item of backendData" class="bg-zinc-700 rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 border border-zinc-700 hover:border-amber-500">
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <span class="text-xs font-mono bg-zinc-700 px-3 py-1 rounded-full">
+                ID: {{ item.id }}
+              </span>
+              <span class="text-xs font-semibold px-4 py-1 rounded-full" [ngClass]="{
+                'bg-green-600 text-white': item.status === 'Em Operação',
+                'bg-yellow-600 text-white': item.status === 'Em Construção',
+                'bg-blue-600 text-white': item.status === 'Inauguração',
+                }">
+                {{ item.status }}
+              </span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">{{ item.titulo }}</h3>
+            <p class="text-zinc-400 text-sm leading-relaxed">{{ item.descricao }}</p>
+          </div>
+          <div class="border-t border-zinc-700 p-4 bg-zinc-900/50">
+            <button class="text-amber-400 hover:text-amber-300 text-sm font-medium">
+              Ver detalhes →
+            </button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="backendData && backendData.length === 0" class="text-center py-20 text-zinc-500">
+        Nenhum projeto encontrado.
+      </div>
+      <div *ngIf="errorMessage" class="mt-10 p-6 bg-red-950 border border-red-800 rounded-3xl max-w-2xl mx-auto text-red-400 text-center">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+</section>

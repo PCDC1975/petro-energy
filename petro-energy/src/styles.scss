@@ -1,0 +1,16 @@
+@use "tailwindcss";
+
+/* Seus estilos personalizados */
+@layer components {
+  .card {
+    @apply bg-white dark:bg-zinc-900 rounded-3xl shadow-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden;
+  }
+
+  .btn {
+    @apply font-medium py-3 px-8 rounded-2xl transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white;
+  }
+}

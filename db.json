@@ -1,0 +1,5 @@
+{"projetos": [
+    {"id": 1, "titulo": "Plataforma Horizonte Verde", "descricao": "Plataforma com captura de carbono...", "status": "Em Operação"},
+    {"id": 2, "titulo": "Refinaria Sergipe", "descricao": "Produção de combustíveis limpos...", "status": "Em Construção"},
+    {"id": 3, "titulo": "Campo Atlântico Sul", "descricao": "projeto de exploração em águas ultraprofundas", "status": "Inauguração"}
+]}
